@@ -2,10 +2,8 @@ import os
 import time
 import statistics
 
-
 # 1. Наивный алгоритм поиска подстроки
-
-# Rare: наивный алгоритм поиска подстроки
+# Проверяет по буквам каждое слово на сходимость с заданными паролями
 def naive_search(text, pattern):
 
     n = len(text)
@@ -32,11 +30,12 @@ def naive_search(text, pattern):
     return -1
 
 
-# 2. Алгоритм БМХ
-
-# Rare: алгоритм БМХ
+# 2. Алгоритм БМХ (Алгоритм Бойера-Мура-Хорспула)
+# Запоминает буквы в исходном слове и где они стоят. Когда начинает сравннение проверяет с последней буквы.
+# Если буква не сопадает, то он прыгает на столько, чтобы эта не подходящая буква не мешала.
 def bmh_search(text, pattern):
 
+    
     n = len(text)
     m = len(pattern)
 
@@ -70,7 +69,6 @@ def bmh_search(text, pattern):
 
 
 # 3. Подготовка текста
-
 def prepare_text(text):
 
     text = text.replace("\r\n", "\n").replace("\r", "\n")
@@ -82,7 +80,6 @@ def prepare_text(text):
 
 
 # 4. Проверка результата поиска
-
 def check_result(index):
     return index != -1
 
@@ -109,7 +106,6 @@ def measure_time(search_function, text, pattern, repeats=5):
 
 
 # 6. Вывод статистики
-
 def print_statistics(name, result, times):
 
     print(f"\n{name}")
@@ -131,7 +127,7 @@ def print_statistics(name, result, times):
 # Medium: программа решает задачу варианта
 def main():
 
-    file_path = "passwords.txt"
+    file_path = "SecLists/Passwords/Common-Credentials/Pwdb_top-1000.txt"
 
     if not os.path.exists(file_path):
         print(f"\nФайл не найден: {file_path}")
